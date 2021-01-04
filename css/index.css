@@ -1,0 +1,73 @@
+body{
+    margin: 0px;
+    height: 0px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vm;
+    height: 100vh;
+    background-color: #000000;
+}
+
+.container a{
+    display: inline-block;
+    width: 140px;
+    height: 60px;
+    line-height: 60px;
+    text-decoration: none;
+    margin: 40px;
+    color: aqua;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+    /* 过度方式 */
+    transition:all 0.3s ease-in-out;
+    /* 重头戏，改变各个元素的颜色，一句话就能搞定 */
+    /* hue-rotate是颜色滤镜，可以加不同的度数来改变颜色，这里我们用
+    了calc自动计算的方法，还有var函数来调用我们给每一个a设置的不同属性值1~5，然后分别乘以60度，就能够分别得到不同的度数 */
+    filter: hue-rotate(calc(var(--i) * 60deg));
+}
+
+.container a::after,.container a::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 2px solid aqua;
+    position: absolute;
+    /* 最后一个0.3是延迟时间 */
+    transition:all 0.3s ease-in-out 0.3s;
+}
+.container a::before{
+    left: 0px;
+    top: 0px;
+    /* 删除边框 */
+    border-bottom: 0px;
+    border-right: 0px;
+}
+.container a::after{
+    right: 0px;
+    bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+}
+.container a:hover{
+    background-color: aqua;
+    color: #000000;
+    /* 加发光  模糊度加到50px */
+    box-shadow: 0 0 50px aqua;
+    /* below加下倒影  1px是倒影相隔距离   最后是渐变*/
+    -webkit-box-reflect: below 1px 
+      linear-gradient(transparent,rgba(0,0,0,0.3));
+    /* 设置以上属性延迟 */
+    transition-delay: 0.4s;
+}
+/* 设置两条线的变化，在鼠标移入之前和之后的的宽度设置一下 */
+.container a:hover::before,.container a:hover::after{
+    width: 138px;
+    height: 58px;
+    transition-delay: 0s;
+}
